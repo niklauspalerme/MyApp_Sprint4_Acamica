@@ -1,4 +1,5 @@
-.env 
+# Env
+.env
 
 # Logs
 logs
