@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////
 // Variables Iniciales
 
-const base_url = "http://localhost:8080"
+const base_url = "http://localhost:8080/api/v1"
 let form = document.getElementById('login_form');
 form.addEventListener('submit', showOrder);
 let paymentBox = document.getElementById('box-payment');
@@ -93,9 +93,9 @@ let payment_event= (e) => {
    if (orderState === "Processing" || orderState === 'Payment unsuccessful')
     {
       if (provider === 'paypal')
-        paypal_payment(orderId, orderTotalPrice)
+        paypal_payment(orderId, orderTotalPrice, token)
       else if (provider === 'mercadopago')
-        mercadopago_payment(orderId,orderTotalPrice,token)
+        mercadopago_payment(orderId,orderTotalPrice, token)
     }
   //Caso contrario, le mandamos una ventan de información
   else 
@@ -130,17 +130,20 @@ let main = () =>{
 
 
 // 2) Función que consume los endpoints de paypal
-let paypal_payment = (order, price) =>{
+let paypal_payment = (order, price,token) =>{
 
   console.log("Pagando con Paypal")
 
-  const payment_url = `${base_url}/paypal/payment`;
+  const payment_url = `${base_url}/paypal/payment/${order}`;
 
   const data = {"amount": price, "orderId": order}
 
   fetch(payment_url, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'authentication': `${token}`
+      },
       body: JSON.stringify(data),
     }
   )

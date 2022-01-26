@@ -1,7 +1,8 @@
 /////////////////////////////////////////////////////////////
 // Variables Iniciales
 
-const base_url = "http://localhost:8080"
+
+const base_url = "http://localhost:8080/api/v1"
 let base_url_front = "http://127.0.0.1:5500/front"
 let paymentBox = document.getElementById('box-payment');
 
@@ -18,17 +19,25 @@ let main = () => {
     const params = Object.fromEntries(urlSearchParams.entries());
     const token = params.token;
     let tokenElement = document.getElementById("token");
+    let tokenLS = localStorage.getItem('tokenLS');
     // params.delete("token")
     // TODO: remove token from url
-    console.log(params.token);
+    //console.log(params.token);
 
     if (token) {
         tokenElement.innerText = token;
+        localStorage.setItem('tokenLS',`${token}`)
         getUserData(token);
         getAllOrders(token);
-    } else
+    } else if (tokenLS){
+        tokenElement.innerText = tokenLS;
+        getUserData(tokenLS);
+        getAllOrders(tokenLS);
+    } else{
+        localStorage.removeItem('tokenLS');
         window.location.href = `/front/index.html`
-
+    }
+       
 }
 
 
@@ -60,11 +69,12 @@ function getAllOrders(token) {
 
                 if (!arrayState.includes(data[k].state)) {
                     txtOut += `
-        <button class="btn btn-success btn-payment"  data-order-id="${data[k].id}" data-token-user="${token}">
-          Pay the order
-        </button>
-          <hr/>`
+                        <button class="btn btn-success btn-payment"  data-order-id="${data[k].id}" data-token-user="${token}">
+                        Pay the order
+                        </button>`
                 }
+                
+               txtOut += `<hr/>`;
 
             }
 
@@ -102,19 +112,28 @@ let getUserData = (token) => {
         .then(response => response.json())
         .then(data => {
 
-            let divUserData = document.getElementById('userData');
-            let txtOut = "";
+            //Si el usuario no expiro
+            if (data.name !== undefined){
+                let divUserData = document.getElementById('userData');
+                let txtOut = "";
 
 
-            txtOut += `<p id="userId"> Id: <b>${data.id}</b><br/></p>`;
-            //txtOut += `<p id="username"> Username: <b>${data.username}</b><br/></p>`;
-            txtOut += `<p id="name">Name: <b>${data.name}</b><br/></p>`;
-            //txtOut += `<p id="email"> Email: <b>${data.email}</b><br/></p>`;
-            //txtOut += `<p id="mobile"> Mobile: <b>${data.mobile}</b><br/></p>`;
-            txtOut += `<p id="disabled"> Disabled Status: <b>${data.disabled}</b><br/><hr/></p>`;
+                txtOut += `<p id="userId"> Id: <b>${data.id}</b><br/></p>`;
+                //txtOut += `<p id="username"> Username: <b>${data.username}</b><br/></p>`;
+                txtOut += `<p id="name">Name: <b>${data.name}</b><br/></p>`;
+                //txtOut += `<p id="email"> Email: <b>${data.email}</b><br/></p>`;
+                //txtOut += `<p id="mobile"> Mobile: <b>${data.mobile}</b><br/></p>`;
+                txtOut += `<p id="disabled"> Disabled Status: <b>${data.disabled}</b><br/><hr/></p>`;
 
-            divUserData.innerHTML = txtOut;
+                divUserData.innerHTML = txtOut;
+            }
+            //Si el usuario ya expiro 
+            else{
+                localStorage.removeItem('tokenLS');
+                window.location.href = `/front/index.html`
+            }
 
+            
         })
         .catch(error => {
             console.log(error)

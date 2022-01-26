@@ -14,15 +14,6 @@ const paymentRouter = () =>{
 
     const router = new Router();
 
-   
-    //Este endpoint es de prueba nada mas
-    router.get('/paytest', function(req, res) {
-
-        res.json({"Message": "Its working fine"});
-
-    });
-
-
     router.use('/paypal', paypal);
     router.use('/mercadopago', mercadopago);
 

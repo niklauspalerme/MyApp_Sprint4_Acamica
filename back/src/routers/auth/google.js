@@ -49,13 +49,18 @@ router.get('/callback', passport.authenticate(strategy_name, { session: false, f
 
 
 
-
-
-
 /////////////////////////////////////////////////////////////
 // Exportamos 
 
 module.exports = router;
+
+
+
+
+
+
+
+
 
 
 

@@ -3,6 +3,7 @@
 
 const {Router} = require("express");
 const paypal = require('@paypal/checkout-server-sdk'); // SDK de PayPal
+const {verifyJWT, verifyUserDisabled} = require('../../middleware/auth')
 const router = new Router();
 const {updateStateOrderDB, updateOrderPaymentDB} = require('../../controllers/dbOperations/order')
 require('dotenv').config();
@@ -19,11 +20,13 @@ let client = new paypal.core.PayPalHttpClient(environment);
 
 
 //1) Crea la orden de pago y Devuelve el link de pago
-router.post('/payment', async (req, res) => {
+router.post('/payment/:orderId',verifyJWT,verifyUserDisabled, async (req, res) => {
 
 
-    console.log("New request POST to /paypal");
+    console.log("New request POST to /paypal/payment/:orderId");
     let request = new paypal.orders.OrdersCreateRequest();
+    let value = Math.round(req.body.amount / process.env.US_DOLAR) ; 
+
 
     //Creamos el Body Request de la orden
     request.requestBody({
@@ -31,14 +34,14 @@ router.post('/payment', async (req, res) => {
           "purchase_units": [
               {
                   "amount": {
-                      "currency_code": "MXN",
-                      "value": `${req.body.amount}`
+                      "currency_code": "USD",
+                      "value": value
                   }
               }
             ],
           "application_context": {
-            "return_url": `${process.env.URL_API}/paypal/redirect/${req.body.orderId}`, 
-            "cancel_url": `${process.env.URL_API}/paypal/cancel/${req.body.orderId}`
+            "return_url": `${process.env.URL_API}/paypal/redirect/${req.params.orderId}`, 
+            "cancel_url": `${process.env.URL_API}/paypal/cancel/${req.params.orderId}`
           }
     });
 
@@ -64,6 +67,7 @@ router.get('/redirect/:orderId', async (req, res) => {
   try {
 
     console.log("New request GET to /paypal/redirect/:orderId");
+    console.log(req.query)
     let {token} = req.query; // Lo obtenemos del proceso de sandbox
 
     request = new paypal.orders.OrdersCaptureRequest(token);
@@ -101,7 +105,7 @@ router.get('/redirect/:orderId', async (req, res) => {
   });
 
   
-//2.4. Cuando se cancela, se redirige acá
+//3 Cuando se cancela, se redirige acá
 router.get('/cancel/:orderId',async (req,res) => {
    try {
 
@@ -109,8 +113,13 @@ router.get('/cancel/:orderId',async (req,res) => {
 
     let orderId = req.params.orderId;
 
-    await updateStateOrderDB(orderId,"Payment unsuccessful")
-    res.status(200).json({"Message": `The payment for orderId ${orderId} was unsuccessful. Please try again with another way`});
+    let state = await updateStateOrderDB(orderId,"Payment unsuccessful")
+
+    if (state)
+      res.status(200).json({"Message": `The payment for orderId ${orderId} was unsuccessful. Please try again with another way`});
+    else
+      res.status(404).json({"Message": `The orderId ${orderId} doesnt exists`});
+
 
    } catch (err) {
     res.status(err.statusCode).json(err);

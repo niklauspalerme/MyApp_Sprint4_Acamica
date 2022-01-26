@@ -93,10 +93,16 @@ router.get('/success/:orderId', async (req, res) => {
     console.log("New request GET to /mercadopago/success/:orderId");
     let orderId = req.params.orderId;
 
-    await updateStateOrderDB(orderId,"Payment completed. Preparing Order")
-    await updateOrderPaymentDB(orderId, 2)
+    let status = await updateStateOrderDB(orderId,"Payment completed. Preparing Order")
 
-    res.status(200).json({"Message": `Thanks for your purchase. The orderId ${orderId} was successfully paid. You can check the status on our web :) `});
+    if (status){
+      await updateOrderPaymentDB(orderId, 2)
+      res.status(200).json({"Message": `Thanks for your purchase. The orderId ${orderId} was successfully paid. You can check the status on our web :) `});
+    }else{
+      res.status(404).json({"Message": `The orderId ${orderId} doesnt exists`});
+    }
+
+    
 
   } catch (error) {
     res.json(error)
@@ -112,9 +118,13 @@ router.get('/pending/:orderId', async (req, res) => {
     console.log("New request GET to /mercadopago/pending/:orderId");
     let orderId = req.params.orderId;
 
-    await updateStateOrderDB(orderId,"Pending for the payment")
+    let status = await updateStateOrderDB(orderId,"Pending for the payment")
+
+    if (status)
+      res.status(200).json({"Message": `The orderId ${orderId} is still pending for the payment. You can check the status on our web :) `});
+    else
+      res.status(404).json({"Message": `The orderId ${orderId} doesnt exists`});
     
-    res.status(200).json({"Message": `The orderId ${orderId} is still pending for the payment. You can check the status on our web :) `});
 
   } catch (error) {
     res.json(error)
@@ -129,11 +139,14 @@ router.get('/failure/:orderId', async (req, res) => {
   try {
 
   console.log("New request GET to /mercadopago/failure/:orderId");
-
   let orderId = req.params.orderId;
 
-  await updateStateOrderDB(orderId,"Payment unsuccessful")
-  res.status(200).json({"Message": `The payment for orderId ${orderId} was unsuccessful. Please try again with another way`});
+  let status = await updateStateOrderDB(orderId,"Payment unsuccessful")
+
+  if (status)
+    res.status(200).json({"Message": `The payment for orderId ${orderId} was unsuccessful. Please try again with another way`});
+  else
+    res.status(404).json({"Message": `The orderId ${orderId} doesnt exists`});
 
   } catch (error) {
     res.json(error)

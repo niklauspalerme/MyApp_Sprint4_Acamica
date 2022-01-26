@@ -2,7 +2,7 @@
 // Variables Iniciales
 
 
-const base_url = "http://localhost:8080"
+const base_url = "http://localhost:8080/api/v1"
 let form = document.getElementById('login_form');
 let buttons = document.querySelectorAll('.providers button');
 
@@ -67,11 +67,11 @@ function login_event(e) {
       else{
         
         //window.alert(data.token);
-        token.textContent = data.token;
-        tokenContainer.style.display = "block";
+        //token.textContent = data.token;
+        //tokenContainer.style.display = "block";
 
-        console.log(token)
-
+        console.log(data.token)
+        localStorage.setItem('tokenLS', `${data.token}`);
         window.location.href = `/front/orders.html?token=${data.token}`
 
         /*setTimeout(()=>{
@@ -93,6 +93,11 @@ function login_event(e) {
 function login_provider_event(event) {
   event.preventDefault();
   const provider = this.getAttribute("data-provider");
+  console.log(provider);
+
+  if (provider === "auth0")
+    window.location.href = `${base_url}/auth/${provider}/login`;
+  else
   window.location.href = `${base_url}/auth/${provider}`;
 
 }

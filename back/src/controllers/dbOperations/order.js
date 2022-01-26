@@ -294,8 +294,11 @@ const updateStateOrderDB = async (id,state)=>{
         orderFound.state=state
         await orderFound.save();
 
+        return true
+
     } catch (error) {
         console.log("Error en updateStateOrderDB......", error);
+        return false
     }
 
 }

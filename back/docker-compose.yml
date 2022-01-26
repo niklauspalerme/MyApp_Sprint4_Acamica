@@ -1,0 +1,54 @@
+version: "3.9"
+
+# Este código sirve para automatizar el comando:
+# docker run --name loginapp_container -p 4567:3000 -d loginapp_image_w_dc
+# También para hacer que la base de datos sea persistente con volúmenes (que los datos no se pierdan al levantar un nuevo container)
+# También que se levante en una red global llamada loginapp_network
+
+services:
+  mydb:
+    container_name: mysql_container  # Este nombre será usado como parámetro 'host' en la conexión a la base de datos
+    image: mysql
+    ports:
+      - "2535:3306"
+    environment:  # la imagen requiere tener unas variables de entorno configuradas
+      - MYSQL_ROOT_PASSWORD=123456  # TODO: usar variables de entorno
+      - MYSQL_DATABASE=loginapp_db12
+      - MYSQL_PASSWORD=123456
+    volumes:
+      # el volumen 'mylocal_mysql_vol' será creado en tu ruta /var/lib/docker/volumes, ver https://stackoverflow.com/a/39208187
+      - mydbvol:/var/lib/mysql
+    networks:
+      - my_network
+    cap_add:
+      - SYS_NICE  # https://stackoverflow.com/questions/55559386/how-to-fix-mbind-operation-not-permitted-in-mysql-error-log
+  redis_db:
+    container_name: redis_container
+    image: redis
+    ports:
+      - "6378:6379"
+    volumes:
+      # el volumen 'mylocal_redis_vol' será creado en tu ruta /var/lib/docker/volumes, ver https://stackoverflow.com/a/39208187
+      - mylocal_redis_vol:/etc/redis/database
+    networks:
+      - my_network
+  api:
+    depends_on:
+      - mydb
+      - redis_db
+    build: .
+    container_name: loginapp_container
+    ports:
+      - "8080:3000"
+    volumes:
+      - ./:/usr/src/app/ # carpeta_host:carpeta_contenedor
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    name: loginapp_network  # red global
+
+volumes:
+  mydbvol:
+  mylocal_redis_vol:
