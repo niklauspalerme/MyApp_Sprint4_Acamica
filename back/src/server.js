@@ -37,7 +37,7 @@ const ServerUp = (port = 3000, message= 'The server is ready') =>{
 
     server.use(express.json());
     server.use(express.urlencoded({extended: false}));
-    server.use('/api/v1/documentation', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+    server.use('/documentation', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
     server.use(helmet());
     server.use(passport.initialize()); // Nuevo
     server.use(cors()); //Nuevo
@@ -45,13 +45,13 @@ const ServerUp = (port = 3000, message= 'The server is ready') =>{
     /////////////////////////////////////////////////////////////
     // Routers
 
-    server.use('/api/v1/agendas', agendaRouter());
-    server.use('/api/v1/mediosDePago', paymentMethodRouter());
-    server.use('/api/v1/products', productRouter());
-    server.use('/api/v1/usuarios', userRouter());
-    server.use('/api/v1/pedidos', orderRouter());
-    server.use('/api/v1/auth', authRouter()); // Ruta de servicios de auth
-    server.use('/api/v1', paymentRouter());
+    server.use('/agendas', agendaRouter());
+    server.use('/mediosDePago', paymentMethodRouter());
+    server.use('/products', productRouter());
+    server.use('/usuarios', userRouter());
+    server.use('/pedidos', orderRouter());
+    server.use('/auth', authRouter()); // Ruta de servicios de auth
+    server.use('/v1', paymentRouter());
     
 
     /////////////////////////////////////////////////////////////
