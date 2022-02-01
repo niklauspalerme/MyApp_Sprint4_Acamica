@@ -68,7 +68,7 @@
         }
       }
     },
-    "/api/v1/usuarios/login": {
+    "/usuarios/login": {
       "post": {
         "tags": ["usuarios"],
         "summary": "Obtener el token de authentication",
