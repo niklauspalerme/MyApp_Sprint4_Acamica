@@ -9,7 +9,7 @@ module.exports = {
       "NODE_ENV": "local",
       "API_DESCRIPTION": "Estás ejecutando tu API en modo desarrollador.",
       "PORT":3000,
-      "DB_HOST":"sprint3.cxbgbiilntg1.sa-east-1.rds.amazonaws.com",
+      "DB_HOST":"sprint3.c49ylfjc2mbm.sa-east-1.rds.amazonaws.com",
       "DB_USERNAME":"rootnico",
       "DB_PASSWORD":12345678,
       "DB_NAME":"sprint3",
