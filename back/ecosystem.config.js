@@ -24,23 +24,25 @@ module.exports = {
       "GOOGLE_CLIENT_SECRET":"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",
       "GOOGLE_CALLBACK":"https://api.delilahrestonico.tk/api/v1/auth/google/callback",
 
-      "FACEBOOK_CLIENT_ID":"305259091459662",
-      "FACEBOOK_CLIENT_SECRET":"f9486bd78e9263109e594ac0b42c3d92",
-      "FACEBOOK_CALLBACK":"https://acamica.loca.lt/auth/facebook/callback",
+      "FACEBOOK_CLIENT_ID":"1427890754309264",
+      "FACEBOOK_CLIENT_SECRET":"8973849aa6725a2c701119af436fd042",
+      "FACEBOOK_CALLBACK":"https://api.delilahrestonico.tk/api/v1/auth/facebook/callback",
 
-      "LINKEDIN_CLIENT_ID":"77qo4rje2vzd6n",
-      "LINKEDIN_CLIENT_SECRET":"wuamsqWOURy0D0AI",
-      "LINKEDIN_CALLBACK":"https://acamica.loca.lt/auth/linkedin/callback",
+      "LINKEDIN_CLIENT_ID":"77u8rwqcczvf5f",
+      "LINKEDIN_CLIENT_SECRET":"jiHInp1ir11AGNaZ",
+      "LINKEDIN_CALLBACK":"https://api.delilahrestonico.tk/api/v1/auth/linkedin/callback",
 
       "GITHUB_CLIENT_ID":"defe7a7422fd437b787b",
       "GITHUB_CLIENT_SECRET":"1bc51ad325416c71c871612e47a8f3548950ca92",
       "GITHUB_CALLBACK":"https://api.delilahrestonico.tk/api/v1/auth/github/callback",
 
       "AUTH0_BASE_URL":"http://localhost:8080/auth/auth0",
-      "AUTH0_CLIENT_ID":"MNeoz4VL0Gam2GKtcCKcqsWmSBC6oihE",
+      "AUTH0_CLIENT_ID":"DD9gHJJAH1nsuF6MVGhSXBREVygXkgTg",
       "AUTH0_ISSUER_BASE_URL":"https://dev-zgut56r8.us.auth0.com",
+
       "MERCADOPAGO_PUBLIC_KEY":"TEST-4f1be09b-de90-409e-be6c-282da7b8c326",
       "MERCADOPAGO_TOKEN":"TEST-1762418979261619-091023-b28f7098b8cc27602768e43b5b67f0f7-358220025",
+      
       "PAYPAL_CLIENT_ID":"Ad59YdTo92RtahOTQwdIqWozeLwR3gDjuL3aRX3Z7SjfzZC6hmuu_LFRc4Ck_iQmRL1WUiogULWzbQxo",
       "PAYPAL_SECRET":"EGBSezZ5RfnYaNsU1tgE-KcC0KgRGvwL25WqRqP_DmrKfYW0gcjbE5Cq2hB2gQbe5-4lbbXagP5oGG8I"
     },
