@@ -19,18 +19,23 @@ module.exports = {
       "JWT_PASS":1234567890,
       "URL_FRONT":"https://www.delilahrestonico.tk",
       "URL_API":"https://api.delilahrestonico.tk",
+
       "GOOGLE_CLIENT_ID":"484773279156-ujtb9u6aa3344o699t50tgqds37ofipq.apps.googleusercontent.com",
       "GOOGLE_CLIENT_SECRET":"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",
       "GOOGLE_CALLBACK":"https://api.delilahrestonico.tk/api/v1/auth/google/callback",
+
       "FACEBOOK_CLIENT_ID":"305259091459662",
       "FACEBOOK_CLIENT_SECRET":"f9486bd78e9263109e594ac0b42c3d92",
       "FACEBOOK_CALLBACK":"https://acamica.loca.lt/auth/facebook/callback",
+
       "LINKEDIN_CLIENT_ID":"77qo4rje2vzd6n",
       "LINKEDIN_CLIENT_SECRET":"wuamsqWOURy0D0AI",
       "LINKEDIN_CALLBACK":"https://acamica.loca.lt/auth/linkedin/callback",
-      "GITHUB_CLIENT_ID":"4d22c305c936e8cbdeb1",
-      "GITHUB_CLIENT_SECRET":"d328f3f36674667ae0c58720d431cd3fa44d9dc3",
-      "GITHUB_CALLBACK":"http://localhost:8080/auth/github/callback",
+
+      "GITHUB_CLIENT_ID":"defe7a7422fd437b787b",
+      "GITHUB_CLIENT_SECRET":"1bc51ad325416c71c871612e47a8f3548950ca92",
+      "GITHUB_CALLBACK":"https://api.delilahrestonico.tk/api/v1/auth/github/callback",
+
       "AUTH0_BASE_URL":"http://localhost:8080/auth/auth0",
       "AUTH0_CLIENT_ID":"MNeoz4VL0Gam2GKtcCKcqsWmSBC6oihE",
       "AUTH0_ISSUER_BASE_URL":"https://dev-zgut56r8.us.auth0.com",
