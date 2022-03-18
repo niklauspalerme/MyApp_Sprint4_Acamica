@@ -36,9 +36,10 @@ module.exports = {
       "GITHUB_CLIENT_SECRET":"1bc51ad325416c71c871612e47a8f3548950ca92",
       "GITHUB_CALLBACK":"https://api.delilahrestonico.tk/api/v1/auth/github/callback",
 
-      "AUTH0_BASE_URL":"https://api.delilahrestonico.tk/api/v1/auth/auth0",
-      "AUTH0_CLIENT_ID":"DD9gHJJAH1nsuF6MVGhSXBREVygXkgTg",
+      "AUTH0_BASE_URL":"https://api.delilahrestonico.tk/api/v1/auth/auth0/login",
+      "AUTH0_CLIENT_ID":"JwSZQQGOkgd3OScE9tOvGKj2XJSXOJHx",
       "AUTH0_ISSUER_BASE_URL":"https://dev-zgut56r8.us.auth0.com",
+
 
       "MERCADOPAGO_PUBLIC_KEY":"TEST-4f1be09b-de90-409e-be6c-282da7b8c326",
       "MERCADOPAGO_TOKEN":"TEST-1762418979261619-091023-b28f7098b8cc27602768e43b5b67f0f7-358220025",
