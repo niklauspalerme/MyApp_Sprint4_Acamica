@@ -36,7 +36,7 @@ module.exports = {
       "GITHUB_CLIENT_SECRET":"1bc51ad325416c71c871612e47a8f3548950ca92",
       "GITHUB_CALLBACK":"https://api.delilahrestonico.tk/api/v1/auth/github/callback",
 
-      "AUTH0_BASE_URL":"http://localhost:8080/auth/auth0",
+      "AUTH0_BASE_URL":"https://api.delilahrestonico.tk/api/v1/auth/auth0/callback",
       "AUTH0_CLIENT_ID":"DD9gHJJAH1nsuF6MVGhSXBREVygXkgTg",
       "AUTH0_ISSUER_BASE_URL":"https://dev-zgut56r8.us.auth0.com",
 
